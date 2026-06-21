@@ -1,0 +1,4 @@
+*.app/
+*.dmg
+dmg_stage/
+.DS_Store
