@@ -15,6 +15,21 @@ let OTTER = FRAMES[0]   // representative frame for the menu-bar icon, aspect, a
 let OTTER_ASPECT: CGFloat = OTTER.size.width > 0 ? OTTER.size.height / OTTER.size.width : 236.0 / 227.0
 let FRAME_INTERVAL: TimeInterval = 0.25   // 4 fps, from the Piskel file
 
+// Dog yip when the buddy appears; otter chirp when it's clicked to fade away.
+func loadSound(_ name: String) -> NSSound? {
+    if let url = Bundle.main.url(forResource: name, withExtension: "wav") {
+        return NSSound(contentsOf: url, byReference: true)
+    }
+    return nil
+}
+let BARK = loadSound("bark")
+let OTTER_CHIRP = loadSound("otter")
+func play(_ sound: NSSound?) {
+    guard Settings.shared.sound else { return }
+    sound?.stop()   // restart from the top if it's still ringing out
+    sound?.play()
+}
+
 func otterIcon(height: CGFloat) -> NSImage {
     let aspect = OTTER.size.height > 0 ? OTTER.size.width / OTTER.size.height : 143.0 / 213.0
     let w = max(1, height * aspect)
@@ -181,7 +196,7 @@ final class BuddyController {
             win.animator().alphaValue = 1
             win.animator().setFrame(frame, display: true)
         }
-        if Settings.shared.sound { NSSound(named: "Pop")?.play() }
+        play(BARK)   // dog yips on arrival
     }
 
     private func startCycling() {
@@ -206,7 +221,7 @@ final class BuddyController {
         guard let win = window, let v = view else { return }
         dismissTimer?.invalidate()
         stopCycling()
-        if Settings.shared.sound { NSSound(named: "Pop")?.play() }
+        play(OTTER_CHIRP ?? BARK)   // otter chirps as it fades (falls back to the yip if no chirp is bundled)
         let dissolveBase = FRAMES[frameIndex]   // dissolve whichever frame is showing
         let duration: TimeInterval = 0.7
         let startTime = Date()
@@ -358,7 +373,7 @@ final class PreferencesController: NSObject, NSWindowDelegate {
         sizeLabel = sl; c.addSubview(sl)
 
         // Sound
-        let soundBox = NSButton(checkboxWithTitle: "Blip sound when it appears", target: self, action: #selector(soundToggled(_:)))
+        let soundBox = NSButton(checkboxWithTitle: "Bark when it appears", target: self, action: #selector(soundToggled(_:)))
         soundBox.frame = NSRect(x: ctrlX, y: rowY(5) - 2, width: 240, height: 22)
         soundBox.state = s.sound ? .on : .off
         c.addSubview(soundBox)

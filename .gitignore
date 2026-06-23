@@ -2,3 +2,6 @@
 *.dmg
 dmg_stage/
 .DS_Store
+
+# Otter fade sound is kept local only (unknown license — not for public distribution).
+Resources/otter.wav

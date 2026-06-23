@@ -67,11 +67,21 @@ After the first launch it opens normally.
 | `Sources/main.swift` | The entire app — frame animation, pixel-dissolve, scheduling, menu bar, preferences. |
 | `Resources/frame0.png`, `frame1.png` | The buddy animation frames (exported from Piskel). |
 | `Resources/AppIcon.icns` | The app icon (otter + dog on a card-blue plate). |
+| `Resources/bark.wav` | The bark/yip played on appear and dismiss. |
 | `build.sh` | Compiles and bundles the universal `.app`. |
 | `build_dmg.sh` | Builds the drag-to-Applications DMG. |
 | `dmg_background.png` | The installer window background. |
 | `Info.plist` | Bundle metadata (`LSUIElement` = menu-bar agent). |
 
+## Sounds
+
+- **Appear:** a little dog yip (`Resources/bark.wav`).
+- **Click to fade:** an otter chirp, *if* you provide `Resources/otter.wav`. None is shipped here, so by default the fade falls back to the yip. Drop in your own properly-licensed otter chirp and `build.sh` will bundle it automatically.
+
+## Credits
+
+- Bark sound: derived from ["Barking of a dog.ogg"](https://commons.wikimedia.org/wiki/File:Barking_of_a_dog.ogg) by Amada44, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) — trimmed to a single bark and pitched up. This asset remains under CC BY-SA 3.0.
+
 ## License
 
-MIT
+MIT (code). See Credits for third-party asset licenses.

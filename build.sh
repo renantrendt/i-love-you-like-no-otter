@@ -20,6 +20,9 @@ cp Info.plist "$APP/Contents/Info.plist"
 cp Resources/frame0.png "$APP/Contents/Resources/frame0.png"
 cp Resources/frame1.png "$APP/Contents/Resources/frame1.png"
 cp Resources/AppIcon.icns "$APP/Contents/Resources/AppIcon.icns"
+cp Resources/bark.wav "$APP/Contents/Resources/bark.wav"
+# Optional otter chirp for the fade (not shipped publicly — see README). Bundled only if present.
+[ -f Resources/otter.wav ] && cp Resources/otter.wav "$APP/Contents/Resources/otter.wav" || true
 
 # Ad-hoc sign so Gatekeeper is a little friendlier on the recipient's Mac.
 codesign --force --deep -s - "$APP" 2>/dev/null || true
