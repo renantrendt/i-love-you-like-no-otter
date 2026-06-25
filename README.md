@@ -76,10 +76,11 @@ After the first launch it opens normally.
 ## Sounds
 
 - **Appear:** a little dog yip (`Resources/bark.wav`).
-- **Click to fade:** an otter chirp, *if* you provide `Resources/otter.wav`. None is shipped here, so by default the fade falls back to the yip. Drop in your own properly-licensed otter chirp and `build.sh` will bundle it automatically.
+- **Click to fade:** an otter chirp (`Resources/otter.wav`).
 
 ## Credits
 
+- Otter chirp (`otter.wav`): original recording by the author, included under this project's MIT license.
 - Bark sound: derived from ["Barking of a dog.ogg"](https://commons.wikimedia.org/wiki/File:Barking_of_a_dog.ogg) by Amada44, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) — trimmed to a single bark and pitched up. This asset remains under CC BY-SA 3.0.
 
 ## License
