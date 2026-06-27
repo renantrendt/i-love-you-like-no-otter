@@ -436,7 +436,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         if let btn = statusItem.button {
             btn.image = otterIcon(height: 18)
-            btn.imagePosition = .imageOnly
+            btn.imagePosition = .imageLeft
         }
         buildMenu()
         buddy.onDismiss = { [weak self] in self?.rescheduleFromNow() }
@@ -515,6 +515,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
 
     private func updateStatus() {
+        var buttonTitle = ""
         if let until = pausedUntil {
             statusLine.title = "⏸ Paused — \(clock(until.timeIntervalSinceNow)) left"
         } else if !Settings.shared.isActiveNow() {
@@ -525,7 +526,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         } else {
             let remaining = nextNudge.timeIntervalSinceNow
             statusLine.title = remaining <= 0 ? "Nudging now…" : "Next otter in \(clock(remaining))"
+            if remaining > 0 { buttonTitle = "\(max(0, Int(remaining / 60)))" }
         }
+        statusItem.button?.title = buttonTitle
     }
 
     @objc private func showNow() { buddy.show() }
